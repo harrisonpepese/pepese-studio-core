@@ -10,7 +10,7 @@ export interface IPet {
     level: number;
     baseAttributes: IPetAttributes;
     currentAttributes: IPetAttributes;
-    attributPoints: number;
+    attributePoints: number;
     experience: number;
     created_at: Date;
     updated_at: Date;
