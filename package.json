@@ -1,6 +1,6 @@
 {
   "name": "pepese-core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,8 @@
   "devDependencies": {
     "typescript": "^5.2.2"
   },
-  "exports":{
-    "user": "./src/index.ts"
+  "exports": {
+    "user": "./src/user"
   },
   "dependencies": {
     "class-validator": "^0.14.0"
