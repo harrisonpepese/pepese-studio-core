@@ -9,8 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "exports": {
-    "user": "./dist/user/index.js",
-    "user/types": "./dist/user/index.d.ts"
+    "./src/user": "./dist/user/index.js",
+    "./src/user/types": "./dist/user/index.d.ts"
   },
   "author": "",
   "license": "ISC",
