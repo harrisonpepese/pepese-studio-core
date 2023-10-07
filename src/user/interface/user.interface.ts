@@ -5,6 +5,7 @@ export interface IUser {
     name: string;
     email: string;
     password: string;
+    pepeseCoin:number;
     role: EUserRole;
     created_at: Date;
     updated_at: Date;
