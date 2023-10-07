@@ -1,18 +1,21 @@
 {
   "name": "pepese-core",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "exports": {
+    "user": "./dist/user/index.js",
+    "user/types": "./dist/user/index.d.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.2.2"
-  },
-  "exports": {
-    "user": "./src/user"
   },
   "dependencies": {
     "class-validator": "^0.14.0"
