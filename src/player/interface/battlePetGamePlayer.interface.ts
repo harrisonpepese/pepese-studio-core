@@ -1,7 +1,6 @@
 import { IPet } from "../../pets/interface/pet.interface";
-import { BasePlayer } from "./basePlayer.interface";
+import { IBasePlayer } from "./basePlayer.interface";
 
-export interface BattlePetGamePlayer extends BasePlayer {
-    pets: IPet[];
-    gameCoins: number;
+export interface IBattlePetGamePlayer extends IBasePlayer {
+  pets: IPet[];
 }
