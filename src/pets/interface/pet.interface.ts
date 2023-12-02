@@ -1,17 +1,19 @@
+import { IBaseEntity } from "../../common/entity/baseEntity.interface";
 import { EElementType } from "../../common/enum/elementType.enum";
 import { EHabitatType } from "../../common/enum/habitatType.enum";
+import { EPetTier } from "../enum/petTier.enum";
 import { IPetAttributes } from "./petAttributes.interface";
 
-export interface IPet {
-    id: string;
-    name: string;
-    habitat: EHabitatType;
-    elemet: EElementType;
-    level: number;
-    baseAttributes: IPetAttributes;
-    currentAttributes: IPetAttributes;
-    attributePoints: number;
-    experience: number;
-    created_at: Date;
-    updated_at: Date;
+export interface IPet extends IBaseEntity {
+  name: string;
+  playerId: string;
+  tier: EPetTier;
+  habitat: EHabitatType;
+  elemet: EElementType;
+  baseAttributes: IPetAttributes;
+  currentAttributes: IPetAttributes;
+  level: number;
+  attributePoints: number;
+  avaliableAttributePoints: number;
+  experience: number;
 }

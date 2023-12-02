@@ -1,7 +1,8 @@
 export interface IPetAttributes {
-    attack: number;
-    defense: number;
-    health: number;
-    speed: number;
-    stamina: number;
+  strength: number;
+  dexterity: number;
+  agility: number;
+  intelligence: number;
+  vitality: number;
+  lucky: number;
 }
