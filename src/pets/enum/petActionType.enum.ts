@@ -3,4 +3,5 @@ export enum EPetActionType {
   defense = "defense",
   healing = "healing",
   rest = "rest",
+  dodge = "dodge",
 }
