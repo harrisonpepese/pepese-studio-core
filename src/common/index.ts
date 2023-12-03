@@ -1,2 +1,3 @@
-export * from './enum/elementType.enum'
-export * from './enum/habitatType.enum'
+export * from "./enum/elementType.enum";
+export * from "./enum/damageType.enum";
+export * from "./enum/habitatType.enum";

@@ -10,6 +10,6 @@ export interface IBattleRoundActionAttributes {
 }
 
 export interface IBattleRoundAction extends IBattleRoundActionAttributes {
-  getDamage: () => number;
-  getSpeed: () => number;
+  getDamage(): number;
+  getSpeed(): number;
 }
