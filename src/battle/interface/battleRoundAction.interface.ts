@@ -9,7 +9,7 @@ export interface IBattleRoundActionAttributes {
   seed: number;
 }
 
-export interface IBattleRoundAction {
+export interface IBattleRoundAction extends IBattleRoundActionAttributes {
   getDamage: () => number;
   getSpeed: () => number;
 }
