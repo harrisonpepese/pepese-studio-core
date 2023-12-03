@@ -15,6 +15,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@nestjs/common": "^10.2.10",
+    "@nestjs/mongoose": "^10.0.2",
+    "bcrypt": "^5.1.1",
     "class-validator": "^0.14.0"
   }
 }

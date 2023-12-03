@@ -1,15 +1,10 @@
 import { EPetActionType } from "../../pets";
-import { IPetStatus } from "../../pets/interface/petStatus.interface";
+import { PetStatus } from "../../pets/class/petStatus";
 
-export interface IBattleRoundActionAttributes {
+export interface IBattleRoundAction {
   playerId: string;
-  petStatus: IPetStatus;
+  petStatus: PetStatus;
   action?: EPetActionType;
   targetId: string;
   seed: number;
-}
-
-export interface IBattleRoundAction extends IBattleRoundActionAttributes {
-  getDamage(): number;
-  getSpeed(): number;
 }

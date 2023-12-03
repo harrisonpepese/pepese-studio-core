@@ -22,10 +22,11 @@ export interface IBattleAttributes extends IBaseEntity {
 }
 
 export interface IBattle extends IBattleAttributes {
-  start: () => void;
-  setTimer: (seconds: number, type: EBattleTimer) => void;
-  createRound: () => void;
-  addRoundAction: (action: IBattleRoundAction) => void;
-  executeRound: () => void;
-  end: () => void;
+  start(): void;
+  setTimer(seconds: number, type: EBattleTimer): void;
+  createRound(): void;
+  addRoundAction(action: any): void;
+  executeRound(): void;
+  end(): void;
+  toDto(): IBattleAttributes;
 }
