@@ -1,5 +1,6 @@
 import * as bcript from "bcrypt";
-import { EUserRole, IUser } from "../../user";
+import { EUserRole } from "../enum";
+import { IUser } from "../interface";
 import { IUserAttributes } from "../interface/user.interface";
 
 export class User implements IUser {

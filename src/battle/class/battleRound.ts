@@ -1,6 +1,5 @@
 import { DamageType } from "../../common";
-import { EPetActionType } from "../../pets";
-import { EBattleRoundPowerTypes } from "../enum/battleRoundPowerType.enum";
+import { EActionType } from "../../common";
 import { IBattleRound } from "../interface/battleRound.interface";
 import { IBattleRoundAction } from "../interface/battleRoundAction.interface";
 
@@ -39,13 +38,13 @@ export class BattleRound implements IBattleRound {
   }
 
   executeAction(origin: IBattleRoundAction, target?: IBattleRoundAction) {
-    if (origin.action === EPetActionType.attack) {
+    if (origin.action === EActionType.attack) {
       this.baseAttack(origin, target);
     }
-    if (origin.action === EPetActionType.rest) {
+    if (origin.action === EActionType.rest) {
       this.rest(origin);
     }
-    if (origin.action === EPetActionType.healing) {
+    if (origin.action === EActionType.healing) {
       this.healing(origin);
     }
   }
@@ -62,7 +61,7 @@ export class BattleRound implements IBattleRound {
     const targetBonus = {
       bonus: target.seed,
     };
-    if (target.action === EPetActionType.defense) {
+    if (target.action === EActionType.defense) {
       target.petStatus.damage({
         amount: damage,
         type: damageType,
@@ -70,7 +69,7 @@ export class BattleRound implements IBattleRound {
       });
       return;
     }
-    if (target.action === EPetActionType.dodge) {
+    if (target.action === EActionType.dodge) {
       if (
         target.petStatus.getDodging(originBonus) >
         origin.petStatus.getAcurency(targetBonus)

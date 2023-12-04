@@ -1,2 +1,3 @@
-export * from './interface/basePlayer.interface'
-export * from './interface/battlePetGamePlayer.interface'
+export * from "./class";
+export * from "./interface";
+export * from "./schema";
