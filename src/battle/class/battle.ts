@@ -9,13 +9,17 @@ import { IBattleRound } from "../interface/battleRound.interface";
 import { randomUUID } from "crypto";
 import { EBattleEvents } from "../enum/battleEvent.enum";
 import { BattleRound } from "./battleRound";
+import { IBattleRoundAction } from "../interface";
+import { EActionType, RandomService } from "../../common";
 
 export class Battle extends EventEmitter implements IBattle {
-  constructor() {
+  constructor(redTeam: IBattlePet, blueTeam: IBattlePet) {
     super();
     this.uuid = randomUUID();
     this.status = EBattleStatus.waiting;
     this.endedRounds = [];
+    this.redTeam = redTeam;
+    this.blueTeam = blueTeam;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }
@@ -40,8 +44,9 @@ export class Battle extends EventEmitter implements IBattle {
     this.emit(EBattleEvents.start, this.toDto());
     this.createRound();
   }
+
   setTimer(seconds: number, type: EBattleTimer): void {
-    this.timerSeconds = seconds;
+    this.timerSeconds = seconds - 1;
     this.timer = setInterval(async () => {
       if (this.timerSeconds <= 0) {
         clearInterval(this.timer);
@@ -60,21 +65,85 @@ export class Battle extends EventEmitter implements IBattle {
       this.emit(EBattleEvents.timerTick, this.toDto());
     }, 1000);
   }
+
   createRound(): void {
     if (!this.currentRound) {
-      this.currentRound = new BattleRound();
+      this.currentRound = new BattleRound([
+        this.createRoundAction(this.redTeam.playerId),
+        this.createRoundAction(this.blueTeam.playerId),
+      ]);
+
+      this.setTimer(10, EBattleTimer.roundActionTimeout);
     }
   }
-  addRoundAction(action: any): void {
-    throw new Error("Method not implemented.");
+
+  private createRoundAction(playerId: string): IBattleRoundAction {
+    const petStatus =
+      playerId === this.redTeam.playerId
+        ? this.redTeam.status
+        : this.blueTeam.status;
+    return {
+      playerId,
+      petStatus,
+      seed: this.getroundActionSeed(),
+    };
   }
+
+  private getroundActionSeed(): number {
+    return RandomService.rangeFloat(0.5, 1.5);
+  }
+
+  addRoundAction(playerId: string, action: EActionType): void {
+    if (!this.currentRound) {
+      return;
+    }
+    const currentAction = this.currentRound.actions.find(
+      (x) => x.playerId == playerId
+    );
+    this.currentRound.addAction({});
+    if (this.currentRound.canExecute()) {
+      this.executeRound();
+    }
+  }
+
   executeRound(): void {
-    throw new Error("Method not implemented.");
+    this.currentRound.executeRound();
+    this.checkIfBattleEnd();
   }
+
   end(): void {
-    throw new Error("Method not implemented.");
+    this.status = EBattleStatus.finished;
+    this.emit(EBattleEvents.end, this.toDto());
   }
+
+  private checkIfBattleEnd() {
+    if (this.blueTeam.status.currentStatus.health <= 0) {
+      this.winner = EBattleTeam.red;
+      return this.end();
+    }
+    if (this.redTeam.status.currentStatus.health <= 0) {
+      this.winner = EBattleTeam.blue;
+      return this.end();
+    }
+    this.createRound();
+  }
+
   toDto(): IBattleAttributes {
-    throw new Error("Method not implemented.");
+    return {
+      id: this.id,
+      uuid: this.uuid,
+      type: this.type,
+      status: this.status,
+      endedRounds: this.endedRounds,
+      currentRound: this.currentRound,
+      timer: this.timer,
+      timerSeconds: this.timerSeconds,
+      logs: this.logs,
+      blueTeam: this.blueTeam,
+      redTeam: this.redTeam,
+      winner: this.winner,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+    };
   }
 }

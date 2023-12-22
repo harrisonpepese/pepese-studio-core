@@ -5,8 +5,8 @@ import { IBattleRoundAction } from "../interface/battleRoundAction.interface";
 
 export class BattleRound implements IBattleRound {
   actions: IBattleRoundAction[];
-  constructor() {
-    this.actions = [];
+  constructor(baseActions: IBattleRoundAction[]) {
+    this.actions = baseActions;
   }
 
   canExecute() {

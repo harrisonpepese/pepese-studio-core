@@ -1,7 +1,7 @@
-import { DamageType } from "../../common";
-import { IPetStatus } from "../../pets/interface/petStatus.interface";
+import { PetStatus } from "../../pets";
 
 export interface IBattlePet {
   playerId: string;
-  status: IPetStatus;
+  petId: string;
+  status: PetStatus;
 }

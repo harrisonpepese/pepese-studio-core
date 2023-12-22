@@ -1,3 +1,4 @@
+import { EActionType } from "../../common";
 import { IBaseEntity } from "../../common/entity/baseEntity.interface";
 import { EBattleStatus } from "../enum/battleStatus.enum";
 import { EBattleTeam } from "../enum/battleTeam.enum";
@@ -25,7 +26,7 @@ export interface IBattle extends IBattleAttributes {
   start(): void;
   setTimer(seconds: number, type: EBattleTimer): void;
   createRound(): void;
-  addRoundAction(action: any): void;
+  addRoundAction(playerId: string, action: EActionType): void;
   executeRound(): void;
   end(): void;
   toDto(): IBattleAttributes;
