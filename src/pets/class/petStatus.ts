@@ -1,4 +1,4 @@
-import { DamageType } from "../../common";
+import { EDamageType } from "../../common";
 import { IPetAttributes } from "../interface/petAttributes.interface";
 import {
   IPetStatus,
@@ -26,13 +26,13 @@ export class PetStatus implements IPetStatus {
   getAttack(props: TGetPowerWithDamageTypeProps): number {
     let output = 0;
     switch (props.type) {
-      case DamageType.physical:
+      case EDamageType.physical:
         output = this.currentStatus.physicalAttack;
         break;
-      case DamageType.magic:
+      case EDamageType.magic:
         output = this.currentStatus.magicAttack;
         break;
-      case DamageType.real:
+      case EDamageType.real:
         output = Math.floor(
           (this.currentStatus.physicalAttack + this.currentStatus.magicAttack) *
             0.5
@@ -47,13 +47,13 @@ export class PetStatus implements IPetStatus {
   getDefense(props: TGetPowerWithDamageTypeProps): number {
     let output = 0;
     switch (props.type) {
-      case DamageType.physical:
+      case EDamageType.physical:
         output = this.currentStatus.physicalDefense;
         break;
-      case DamageType.magic:
+      case EDamageType.magic:
         output = this.currentStatus.magicaDefense;
         break;
-      case DamageType.real:
+      case EDamageType.real:
         output = Math.floor(
           (this.currentStatus.physicalDefense +
             this.currentStatus.magicaDefense) *

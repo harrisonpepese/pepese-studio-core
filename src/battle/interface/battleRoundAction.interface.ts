@@ -3,8 +3,8 @@ import { PetStatus } from "../../pets/class/petStatus";
 
 export interface IBattleRoundAction {
   playerId: string;
-  petStatus: PetStatus;
-  action?: EActionType;
-  targetId?: string;
+  action: EActionType;
+  status: PetStatus;
+  targetId: string;
   seed: number;
 }

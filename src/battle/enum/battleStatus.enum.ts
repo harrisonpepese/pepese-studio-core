@@ -1,5 +1,6 @@
 export enum EBattleStatus {
-  waiting = 'waiting',
-  inProgress = 'inProgress',
-  finished = 'finished',
+  starting = "starting",
+  roundInProgress = "roundInProgress",
+  roundEnded = "roundEnded",
+  finished = "finished",
 }

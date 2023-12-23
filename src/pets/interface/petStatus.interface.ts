@@ -1,4 +1,4 @@
-import { DamageType } from "../../common";
+import { EDamageType } from "../../common";
 
 export interface IPetStatusAttributes {
   health: number;
@@ -13,14 +13,14 @@ export interface IPetStatusAttributes {
 }
 export type TDamageProps = {
   amount: number;
-  type: DamageType;
+  type: EDamageType;
   defBonus?: number;
 };
 export type TGetPowerOptions = {
   bonus: number;
 };
 export type TGetPowerWithDamageTypeProps = {
-  type: DamageType;
+  type: EDamageType;
 } & TGetPowerOptions;
 export interface IPetStatus {
   currentStatus: IPetStatusAttributes;

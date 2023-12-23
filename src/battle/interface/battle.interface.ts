@@ -12,8 +12,8 @@ export interface IBattleAttributes extends IBaseEntity {
   uuid: string;
   type: EBattleType;
   status: EBattleStatus;
-  endedRounds: IBattleRound[];
-  currentRound: IBattleRound;
+  roundCount: number;
+  roundActions: IBattleRoundAction[];
   timer: any;
   timerSeconds: number;
   logs: string[];
@@ -26,8 +26,14 @@ export interface IBattle extends IBattleAttributes {
   start(): void;
   setTimer(seconds: number, type: EBattleTimer): void;
   createRound(): void;
-  addRoundAction(playerId: string, action: EActionType): void;
+  addRoundAction(params: addRoundActionParams): void;
   executeRound(): void;
   end(): void;
   toDto(): IBattleAttributes;
 }
+
+export type addRoundActionParams = {
+  playerId: string;
+  action: EActionType;
+  targetId?: string;
+};

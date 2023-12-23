@@ -1,4 +1,4 @@
-export enum DamageType {
+export enum EDamageType {
   physical,
   magic,
   real,
