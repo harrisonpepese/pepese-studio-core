@@ -7,7 +7,8 @@
   "scripts": {
     "prepare": "rm -r -f dist && npm run build",
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "test:cov": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
@@ -37,7 +38,10 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.(t|j)s",
+      "!**/index.ts",
+      "!**/*.schema.ts",
+      "!**/*.dto.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

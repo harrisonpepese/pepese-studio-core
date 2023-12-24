@@ -1,7 +1,5 @@
 export interface IBasePlayer {
   accountId: string;
-  createdAt: Date;
-  updatedAt: Date;
   lastLogin: Date;
   gameCoin: number;
   isOnline: boolean;

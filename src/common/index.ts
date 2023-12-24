@@ -1,3 +1,3 @@
-export * from "./entity";
-export * from "./enum";
-export * from "./services";
+export * as entity from "./entity";
+export * as enum from "./enum";
+export * as service from "./services";

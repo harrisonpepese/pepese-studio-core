@@ -1,6 +1,6 @@
 import { RandomService } from "../../common/services/random.service";
 import { EPetTier } from "../enum/petTier.enum";
-import { IPetAttributes } from "../interface/petAttributes.interface";
+import { IPetAttributes } from "../interfaces/petAttributes.interface";
 
 export interface IPetAttributesProps {
   tier: EPetTier;

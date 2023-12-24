@@ -1,21 +1,21 @@
-import { EDamageType } from "../../common";
-import { IPetAttributes } from "../interface/petAttributes.interface";
+import { EDamageType } from "../../common/enum/damageType.enum";
+import { IPetAttributes } from "../interfaces/petAttributes.interface";
 import {
   IPetStatus,
   IPetStatusAttributes,
   TDamageProps,
   TGetPowerOptions,
   TGetPowerWithDamageTypeProps,
-} from "../interface/petStatus.interface";
-import { PetAttributes } from "./petAttributes";
+} from "../interfaces/petStatus.interface";
 
 export class PetStatus implements IPetStatus {
   private baseStatus: IPetStatusAttributes;
   currentStatus: IPetStatusAttributes;
-  constructor(props: IPetStatusAttributes) {
-    this.baseStatus = props;
-    this.currentStatus = props;
+  constructor(props: IPetAttributes) {
+    this.baseStatus = this.create(props);
+    this.currentStatus = { ...this.baseStatus };
   }
+
   getSpeed(options?: TGetPowerOptions): number {
     if (options?.bonus) {
       return Math.floor(this.currentStatus.speed * options.bonus);
@@ -44,6 +44,7 @@ export class PetStatus implements IPetStatus {
     }
     return output;
   }
+
   getDefense(props: TGetPowerWithDamageTypeProps): number {
     let output = 0;
     switch (props.type) {
@@ -66,24 +67,34 @@ export class PetStatus implements IPetStatus {
     }
     return output;
   }
+
   getHealing(options?: TGetPowerOptions): number {
+    let output = 0;
+    output = Math.floor(this.baseStatus.health * 0.2);
     if (options?.bonus) {
-      return Math.floor(this.baseStatus.health * 0.2 * options.bonus);
+      output = Math.floor(output * options.bonus);
     }
-    return Math.floor(this.baseStatus.health * 0.2);
+    return output;
   }
+
   getResting(options?: TGetPowerOptions): number {
+    let output = 0;
+    output = Math.floor(this.baseStatus.stamina * 0.2);
     if (options?.bonus) {
-      return Math.floor(this.baseStatus.stamina * 0.2 * options.bonus);
+      output = Math.floor(output * options.bonus);
     }
-    return Math.floor(this.baseStatus.stamina * 0.2);
+    return output;
   }
+
   getDodging(options?: TGetPowerOptions): number {
+    let output = 0;
+    output = this.currentStatus.dodge;
     if (options?.bonus) {
-      return Math.floor(this.currentStatus.dodge * options.bonus);
+      output = Math.floor(output * options.bonus);
     }
-    return this.currentStatus.dodge;
+    return output;
   }
+
   getAcurency(options?: TGetPowerOptions): number {
     if (options?.bonus) {
       return Math.floor(this.currentStatus.acurency * options.bonus);
@@ -96,9 +107,10 @@ export class PetStatus implements IPetStatus {
       type: props.type,
       bonus: props.defBonus,
     });
-    const damage = props.amount - defense;
+
+    let damage = props.amount - defense;
     if (damage <= 0) {
-      return 1;
+      damage = 1;
     }
     this.currentStatus.health -= damage;
     if (this.currentStatus.health <= 0) {
@@ -135,8 +147,8 @@ export class PetStatus implements IPetStatus {
     return amount;
   }
 
-  static create(attributes: PetAttributes): PetStatus {
-    return new PetStatus({
+  private create(attributes: IPetAttributes): IPetStatusAttributes {
+    return {
       health: this.calcHealth(attributes),
       stamina: this.calcStamina(attributes),
       physicalAttack: this.calcPhysicalAttack(attributes),
@@ -146,10 +158,10 @@ export class PetStatus implements IPetStatus {
       speed: this.calcSpeed(attributes),
       acurency: this.calcAcurency(attributes),
       dodge: this.calcDodge(attributes),
-    });
+    };
   }
 
-  private static calcHealth(attributes: IPetAttributes) {
+  private calcHealth(attributes: IPetAttributes) {
     const { vitality, dexterity } = attributes;
     const minHealth = 20;
     const baseHealth = minHealth + vitality * 5 + Math.round(dexterity / 5);
@@ -158,28 +170,28 @@ export class PetStatus implements IPetStatus {
     );
   }
 
-  private static calcStamina(attributes: IPetAttributes): number {
+  private calcStamina(attributes: IPetAttributes): number {
     const { intelligence, dexterity } = attributes;
     const min = 20;
     const base = min + intelligence * 5 + Math.round(dexterity / 5);
     return Math.round(base + base * (Math.floor(intelligence / 10) / 100));
   }
 
-  private static calcPhysicalAttack(attributes: IPetAttributes): number {
+  private calcPhysicalAttack(attributes: IPetAttributes): number {
     const { strength, dexterity } = attributes;
     const min = 1;
     const base = min + strength * 1 + Math.round(dexterity / 5);
     return Math.round(base + base * (Math.floor(strength / 10) / 100));
   }
 
-  private static calcMagicAttack(attributes: IPetAttributes): number {
+  private calcMagicAttack(attributes: IPetAttributes): number {
     const { intelligence, dexterity } = attributes;
     const min = 1;
     const base = min + intelligence * 5 + Math.round(dexterity / 5);
     return Math.round(base + base * (Math.floor(intelligence / 10) / 100));
   }
 
-  private static calcPhysicalDefense(attributes: PetAttributes): number {
+  private calcPhysicalDefense(attributes: IPetAttributes): number {
     const { vitality, dexterity, strength } = attributes;
     const min = 1;
     const base =
@@ -187,7 +199,7 @@ export class PetStatus implements IPetStatus {
     return Math.round(base + base * (Math.floor(strength / 10) / 100));
   }
 
-  private static calcMagicaDefense(attributes: PetAttributes): number {
+  private calcMagicaDefense(attributes: IPetAttributes): number {
     const { vitality, dexterity, intelligence } = attributes;
     const min = 1;
     const base =
@@ -198,21 +210,21 @@ export class PetStatus implements IPetStatus {
     return Math.round(base + base * (Math.floor(intelligence / 10) / 100));
   }
 
-  private static calcSpeed(attributes: PetAttributes): number {
+  private calcSpeed(attributes: IPetAttributes): number {
     const { agility, dexterity } = attributes;
     const min = 1;
     const base = min + agility * 5 + Math.round(dexterity / 6);
     return Math.round(base + base * (Math.floor(agility / 10) / 100));
   }
 
-  private static calcAcurency(attributes: PetAttributes): number {
+  private calcAcurency(attributes: IPetAttributes): number {
     const { dexterity, agility } = attributes;
     const min = 1;
     const base = min + dexterity * 5 + Math.round(agility / 6);
     return Math.round(base + base * (Math.floor(dexterity / 10) / 100));
   }
 
-  private static calcDodge(attributes: PetAttributes): number {
+  private calcDodge(attributes: IPetAttributes): number {
     const { dexterity, agility } = attributes;
     const min = 1;
     const base = min + agility * 5 + Math.round(dexterity / 6);

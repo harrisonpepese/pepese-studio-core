@@ -1,3 +1,3 @@
-export * from "./enum";
-export * from "./interface";
-export * from "./class";
+export * as enum from "./enum";
+export * as interfaces from "./interfaces";
+export * as class from "./class";

@@ -1,10 +1,10 @@
 export class RandomService {
   static range(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(this.random() * (max - min + 1)) + min;
   }
 
   static rangeFloat(min: number, max: number) {
-    return Math.random() * (max - min + 1) + min;
+    return this.random() * (max - min + 1) + min;
   }
 
   static random() {

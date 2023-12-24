@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import { IPet } from "../interface/pet.interface";
+import { IPet } from "../interfaces/pet.interface";
 import { PetAttributes } from "../class/petAttributes";
-import { EElementType, EHabitatType } from "../../common";
+import { EElementType, EHabitatType } from "../../common/enum";
 import { EPetTier } from "../enum/petTier.enum";
 
 export type PetDocument = PetModel & Document;

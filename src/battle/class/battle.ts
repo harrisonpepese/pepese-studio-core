@@ -6,15 +6,17 @@ import {
   IBattle,
   IBattleAttributes,
   addRoundActionParams,
-} from "../interface/battle.interface";
+} from "../interfaces/battle.interface";
 import { EventEmitter } from "stream";
-import { IBattlePet } from "../interface/battlePet.interface";
+import { IBattlePet } from "../interfaces/battlePet.interface";
 import { randomUUID } from "crypto";
 import { EBattleEvents } from "../enum/battleEvent.enum";
-import { IBattleRoundAction } from "../interface";
-import { EDamageType, EActionType, RandomService } from "../../common";
-import { PetStatus } from "../../pets";
+import { IBattleRoundAction } from "../interfaces";
+import { EDamageType, EActionType } from "../../common/enum";
+
 import { BattleException } from "../../common/exception/battle.exception";
+import { RandomService } from "../../common/services";
+import { PetStatus } from "../../pets/class";
 
 export class Battle extends EventEmitter implements IBattle {
   constructor(redTeam: IBattlePet, blueTeam: IBattlePet) {

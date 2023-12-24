@@ -1,7 +1,7 @@
 import * as bcript from "bcrypt";
 import { EUserRole } from "../enum";
-import { IUser } from "../interface";
-import { IUserAttributes } from "../interface/user.interface";
+import { IUser } from "../interfaces";
+import { IUserAttributes } from "../interfaces/user.interface";
 
 export class User implements IUser {
   constructor(props: IUserAttributes) {
@@ -18,7 +18,7 @@ export class User implements IUser {
 
   async changePassword(currentPassword: string, newPassword: string) {
     if (currentPassword === newPassword) {
-      throw "error";
+      throw new Error("New password must be different from current password");
     }
     this.password = await this.hashPassword(newPassword);
   }

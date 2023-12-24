@@ -1,6 +1,6 @@
-import { EHabitatType, EElementType } from "../../common";
+import { EElementType, EHabitatType } from "../../common/enum";
 import { EPetTier } from "../enum/petTier.enum";
-import { IPet } from "../interface/pet.interface";
+import { IPet } from "../interfaces/pet.interface";
 import { PetAttributes } from "./petAttributes";
 import { PetStatus } from "./petStatus";
 
@@ -27,16 +27,16 @@ export class Pet implements IPet {
   elemet: EElementType;
   baseAttributes: PetAttributes;
   currentAttributes: PetAttributes;
-  level: number;
-  attributePoints: number;
-  avaliableAttributePoints: number;
-  experience: number;
+  level: number = 1;
+  attributePoints: number = 0;
+  avaliableAttributePoints: number = 0;
+  experience: number = 0;
   createdAt: Date;
   updatedAt: Date;
   status: PetStatus;
 
   initStatus() {
-    this.status = PetStatus.create(this.currentAttributes);
+    this.status = new PetStatus(this.currentAttributes);
   }
 
   gainExperience(experience: number) {
@@ -44,11 +44,12 @@ export class Pet implements IPet {
       this.level,
       this.experience
     );
-    this.experience += experience;
-    if (this.experience >= expToNextLevel) {
+    if (experience >= expToNextLevel) {
       this.levelUp();
-      this.gainExperience(this.experience - expToNextLevel);
+      experience -= expToNextLevel;
+      if (experience > 0) return this.gainExperience(experience);
     }
+    this.experience += experience;
   }
 
   levelUp() {
@@ -66,11 +67,10 @@ export class Pet implements IPet {
   static generate(props: TPetCreateProps) {
     const pet = new Pet();
     pet.name = props.name;
-    pet.habitat = props.habitat;
-    pet.elemet = props.elemet;
     pet.playerId = props.playerId;
+    pet.habitat = props.habitat;
     pet.tier = props.tier;
-    pet.level = 1;
+    pet.elemet = props.elemet;
     pet.baseAttributes = new PetAttributes({ tier: props.tier });
     pet.currentAttributes = pet.baseAttributes;
     pet.createdAt = new Date();

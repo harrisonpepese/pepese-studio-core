@@ -3,5 +3,5 @@ export enum EPetTier {
   uncommon,
   rare,
   epic,
-  lengedary,
+  legendary,
 }

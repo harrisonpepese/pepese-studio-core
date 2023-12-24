@@ -1,6 +1,6 @@
-export * from "./auth";
-export * from "./battle";
-export * from "./common";
-export * from "./pets";
-export * from "./player";
-export * from "./user";
+export * as auth from "./auth";
+export * as battle from "./battle";
+export * as common from "./common";
+export * as pets from "./pets";
+export * as player from "./player";
+export * as user from "./user";

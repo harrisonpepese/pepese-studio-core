@@ -1,9 +1,6 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
-import { IBattlePetGamePlayer } from "../interface/battlePetGamePlayer.interface";
-import { IPet } from "../../pets";
+import { IPet } from "../../pets/interfaces";
+import { IBattlePetGamePlayer } from "../interfaces/battlePetGamePlayer.interface";
 
-@Schema()
 export class Player implements IBattlePetGamePlayer {
   constructor(props: IBattlePetGamePlayer) {
     Object.assign(this, props);

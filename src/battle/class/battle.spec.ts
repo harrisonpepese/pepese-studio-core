@@ -1,24 +1,22 @@
-import { EDamageType, EActionType } from "../../common";
-import { PetStatus } from "../../pets";
+import { EActionType, EDamageType } from "../../common/enum";
+import { PetStatus } from "../../pets/class";
+import { IPetAttributes } from "../../pets/interfaces";
 import {
   EBattleEvents,
   EBattleStatus,
   EBattleTeam,
   EBattleTimer,
 } from "../enum";
-import { IBattlePet, IBattleRoundAction } from "../interface";
+import { IBattlePet, IBattleRoundAction } from "../interfaces";
 import { Battle } from "./battle";
 
-const statusAttributes = {
-  health: 100,
-  stamina: 100,
-  physicalAttack: 100,
-  magicAttack: 100,
-  physicalDefense: 100,
-  magicaDefense: 100,
-  speed: 100,
-  acurency: 100,
-  dodge: 100,
+const statusAttributes: IPetAttributes = {
+  strength: 10,
+  dexterity: 10,
+  agility: 10,
+  intelligence: 10,
+  vitality: 10,
+  lucky: 10,
 };
 
 const mockBattlePet = (id: string): IBattlePet => ({
@@ -181,7 +179,7 @@ describe("Battle Test", () => {
     battle.executeRound();
     expect(mockDamage).toHaveBeenCalled();
     expect(mockDamage).toHaveBeenCalledWith({
-      amount: 50,
+      amount: 6,
       type: EDamageType.physical,
       defBonus: 1,
     });
@@ -200,7 +198,7 @@ describe("Battle Test", () => {
     battle.executeRound();
     expect(mockDamage).toHaveBeenCalled();
     expect(mockDamage).toHaveBeenCalledWith({
-      amount: 50,
+      amount: 6,
       type: EDamageType.physical,
     });
   });

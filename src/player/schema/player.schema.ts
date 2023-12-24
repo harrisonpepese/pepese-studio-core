@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { IBattlePetGamePlayer } from "../interface/battlePetGamePlayer.interface";
-import { IPet } from "../../pets";
+import { IBattlePetGamePlayer } from "../interfaces/battlePetGamePlayer.interface";
+import { IPet } from "../../pets/interfaces";
 
 export type PlayerDocument = PlayerModel & Document;
 
