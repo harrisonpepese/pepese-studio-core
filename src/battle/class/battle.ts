@@ -203,7 +203,7 @@ export class Battle extends EventEmitter implements IBattle {
     this.createRound();
   }
 
-  toDto(): IBattleAttributes {
+  toDto(): Omit<IBattleAttributes, "timer"> {
     return {
       id: this.id,
       uuid: this.uuid,
@@ -211,7 +211,6 @@ export class Battle extends EventEmitter implements IBattle {
       status: this.status,
       roundCount: this.roundCount,
       roundActions: this.roundActions,
-      timer: this.timer,
       timerSeconds: this.timerSeconds,
       logs: this.logs,
       blueTeam: this.blueTeam,

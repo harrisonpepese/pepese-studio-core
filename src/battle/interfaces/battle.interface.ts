@@ -28,7 +28,7 @@ export interface IBattle extends IBattleAttributes {
   addRoundAction(params: addRoundActionParams): void;
   executeRound(): void;
   end(): void;
-  toDto(): IBattleAttributes;
+  toDto(): Omit<IBattleAttributes, "timer">;
 }
 
 export type addRoundActionParams = {
