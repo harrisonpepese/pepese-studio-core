@@ -123,16 +123,29 @@ export class Battle extends EventEmitter implements IBattle {
         "C'ant execute round, a round is not in progress"
       );
     this.roundActions.sort((a, b) => {
-      return a.seed - b.seed;
+      return a.status.getSpeed() - b.status.getSpeed();
     });
     for (const action of this.roundActions) {
-      const target = this.roundActions.find(
+      let target = this.roundActions.find(
         (x) => x.playerId === action.targetId
       );
+      if (!target) {
+        target = this.createEmptyAction(action.playerId);
+      }
       this.executeAction(action, target);
     }
     this.status = EBattleStatus.roundEnded;
     this.checkIfBattleEndAfterRound();
+  }
+
+  private createEmptyAction(playerId: string): IBattleRoundAction {
+    const status = this.getPetStatusByPlayerId(playerId);
+    return {
+      playerId,
+      action: EActionType.none,
+      status,
+      seed: this.getRoundActionSeed(),
+    };
   }
 
   private executeAction(

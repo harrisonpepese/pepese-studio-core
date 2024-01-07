@@ -5,6 +5,6 @@ export interface IBattleRoundAction {
   playerId: string;
   action: EActionType;
   status: PetStatus;
-  targetId: string;
+  targetId?: string;
   seed: number;
 }

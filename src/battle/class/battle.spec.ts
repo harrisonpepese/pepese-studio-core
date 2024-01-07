@@ -157,6 +157,17 @@ describe("Battle Test", () => {
     expect(battle.checkIfBattleEndAfterRound).toHaveBeenCalled();
   });
 
+  it("should execute a round if a player dont do a action", () => {
+    jest
+      .spyOn(battle, "checkIfBattleEndAfterRound")
+      .mockImplementation(() => {});
+    battle.status = EBattleStatus.roundInProgress;
+    battle.roundActions = [mockRoundAction("1", "2", EActionType.attack)];
+    battle.executeRound();
+    expect(battle.status).toBe(EBattleStatus.roundEnded);
+    expect(battle.checkIfBattleEndAfterRound).toHaveBeenCalled();
+  });
+
   it("should not execute a round if s not im progress", () => {
     battle.status = EBattleStatus.roundEnded;
     battle.roundActions = [

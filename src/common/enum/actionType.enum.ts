@@ -4,4 +4,5 @@ export enum EActionType {
   healing = "healing",
   rest = "rest",
   dodge = "dodge",
+  none = "none",
 }
